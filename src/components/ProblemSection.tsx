@@ -1,16 +1,13 @@
-const problems = [
-  { icon: '?', text: '何から学べばいいかわからない' },
-  { icon: '↻', text: '独学がなかなか続かない' },
-  { icon: '★', text: '仕事や副業に活かせるスキルが身につきたい' },
-] as const
+import { problemSection } from '../data/lpContent'
+import SectionHeader from './SectionHeader'
 
-function Problems() {
+function ProblemSection() {
   return (
     <section id="problems" className="section problems">
       <div className="container">
-        <h2 className="section-title">こんなお悩みはありませんか？</h2>
+        <SectionHeader title={problemSection.title} lead={problemSection.lead} />
         <ul className="problem-list">
-          {problems.map((item) => (
+          {problemSection.items.map((item) => (
             <li key={item.text} className="problem-card">
               <div className="problem-icon" aria-hidden="true">
                 {item.icon}
@@ -24,4 +21,4 @@ function Problems() {
   )
 }
 
-export default Problems
+export default ProblemSection

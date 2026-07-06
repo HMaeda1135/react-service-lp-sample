@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react'
+import { contactModal } from '../data/lpContent'
 
 type ContactModalProps = {
   isOpen: boolean
@@ -8,14 +9,14 @@ type ContactModalProps = {
 type FormData = {
   name: string
   email: string
-  plan: string
+  service: string
   message: string
 }
 
 const initialFormData: FormData = {
   name: '',
   email: '',
-  plan: '',
+  service: '',
   message: '',
 }
 
@@ -82,10 +83,10 @@ function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <div className="modal-header">
           <div>
             <h2 id="modal-title" className="modal-title">
-              お問い合わせ
+              {contactModal.title}
             </h2>
             <p id="modal-description" className="modal-description">
-              学び方やプランについて、お気軽にご相談ください。
+              {contactModal.description}
             </p>
           </div>
           <button
@@ -98,12 +99,8 @@ function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         {isSubmitted ? (
           <div className="modal-success">
-            <p className="modal-success-title">送信完了（デモ）</p>
-            <p className="modal-success-text">
-              お問い合わせありがとうございます。
-              <br />
-              こちらはデモ用フォームのため、実際の送信は行われません。
-            </p>
+            <p className="modal-success-title">{contactModal.successTitle}</p>
+            <p className="modal-success-text">{contactModal.successText}</p>
             <button type="button" className="btn btn-primary" onClick={onClose}>
               閉じる
             </button>
@@ -138,23 +135,23 @@ function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </div>
 
             <div className="form-field">
-              <label htmlFor="contact-plan">ご希望プラン（任意）</label>
+              <label htmlFor="contact-service">ご希望プラン（任意）</label>
               <select
-                id="contact-plan"
-                name="plan"
-                value={formData.plan}
-                onChange={(e) => updateField('plan', e.target.value)}
+                id="contact-service"
+                name="service"
+                value={formData.service}
+                onChange={(e) => updateField('service', e.target.value)}
               >
-                <option value="">選択してください</option>
-                <option value="light">ライトプラン</option>
-                <option value="standard">スタンダードプラン</option>
-                <option value="support">サポートプラン</option>
-                <option value="undecided">未定・相談したい</option>
+                {contactModal.serviceOptions.map((option) => (
+                  <option key={option.value || 'empty'} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="form-field">
-              <label htmlFor="contact-message">ご相談内容</label>
+              <label htmlFor="contact-message">お困りごと・ご希望</label>
               <textarea
                 id="contact-message"
                 name="message"
@@ -166,9 +163,7 @@ function ContactModal({ isOpen, onClose }: ContactModalProps) {
               />
             </div>
 
-            <p className="form-note">
-              ※ デモ用フォームです。送信してもデータは送信されません。
-            </p>
+            <p className="form-note">{contactModal.formNote}</p>
 
             <div className="modal-actions">
               <button type="button" className="btn btn-secondary" onClick={onClose}>

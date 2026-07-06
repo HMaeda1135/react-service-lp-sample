@@ -1,30 +1,6 @@
 import { useState } from 'react'
-
-type FaqItem = {
-  question: string
-  answer: string
-}
-
-const faqItems: FaqItem[] = [
-  {
-    question: '初心者でも利用できますか？',
-    answer:
-      'はい。基礎から順番に学べる内容のため、はじめての方でも利用しやすい構成です。',
-  },
-  {
-    question: 'スマホでも見られますか？',
-    answer: 'はい。スマホでも見やすいレイアウトを想定しています。',
-  },
-  {
-    question: '途中でプラン変更できますか？',
-    answer: 'はい。学習状況に合わせて、プランを見直せる想定です。',
-  },
-  {
-    question: 'このページは実在するサービスですか？',
-    answer:
-      'いいえ。ポートフォリオ掲載用に作成した、架空サービスのLPサンプルです。',
-  },
-]
+import { faqItems } from '../data/lpContent'
+import SectionHeader from './SectionHeader'
 
 function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -69,15 +45,15 @@ function FaqAccordion() {
   )
 }
 
-function Faq() {
+function FaqSection() {
   return (
     <section id="faq" className="section faq">
       <div className="container">
-        <h2 className="section-title">よくある質問</h2>
+        <SectionHeader title="よくある質問" />
         <FaqAccordion />
       </div>
     </section>
   )
 }
 
-export default Faq
+export default FaqSection
